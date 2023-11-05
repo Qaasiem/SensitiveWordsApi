@@ -33,14 +33,6 @@ namespace SensitiveWordsApi.Controllers
             return result;
         }
 
-        [HttpGet("GetByName")]
-        public async Task<SensitiveWord> GetByName(string sensitiveWordName)
-        {
-            var result = await _services.GetSensitiveWordByName(sensitiveWordName);
-
-            return result;
-        }
-
         // POST api/<SensitiveWordsController>
         [HttpPost]
         public async Task<bool> Post([FromBody] List<SensitiveWord> sensitiveWords)

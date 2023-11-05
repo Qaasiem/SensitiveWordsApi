@@ -28,13 +28,6 @@ namespace SensitiveWordsApi.ServiceLayer
             return result;
         }
 
-        public async Task<SensitiveWord> GetSensitiveWordByName(string sensitiveWordName)
-        {
-            var resultSet = await _apiDbContext.SensitiveWords.FindAsync(sensitiveWordName);
-
-            return resultSet;
-        }
-
         public async Task<bool> CreateSensitiveWords(List<SensitiveWord> sensitiveWords)
         {
             _apiDbContext.SensitiveWords.AddRange(sensitiveWords);
