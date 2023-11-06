@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SensitiveWordsApi.Entities
 {
     public class SensitiveWord
-    { 
+    {
         [Key]
         public Guid WordId { get; set; }
 

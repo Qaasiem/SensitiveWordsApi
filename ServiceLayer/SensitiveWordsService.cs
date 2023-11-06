@@ -24,7 +24,6 @@ namespace SensitiveWordsApi.ServiceLayer
         public async Task<SensitiveWord> GetSensitiveWordById(Guid sensitiveWordId)
         {
             var result = await _apiDbContext.SensitiveWords.FindAsync(sensitiveWordId);
-
             return result;
         }
 
@@ -32,7 +31,6 @@ namespace SensitiveWordsApi.ServiceLayer
         {
             _apiDbContext.SensitiveWords.AddRange(sensitiveWords);
             await _apiDbContext.SaveChangesAsync();
-
             return true;
         }
 

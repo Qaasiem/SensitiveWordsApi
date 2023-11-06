@@ -12,20 +12,19 @@ using SensitiveWordsApi.Persistence.Context;
 namespace SensitiveWordsApi.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20231104210432_Initial Create Attemmpt 2")]
-    partial class InitialCreateAttemmpt2
+    [Migration("20231106165105_Initial Migration")]
+    partial class InitialMigration
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("SensitiveWordsApi.Entities.SensitiveWordsEntity", b =>
+            modelBuilder.Entity("SensitiveWordsApi.Entities.SensitiveWord", b =>
                 {
                     b.Property<Guid>("WordId")
                         .ValueGeneratedOnAdd()
