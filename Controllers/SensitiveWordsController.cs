@@ -2,8 +2,6 @@
 using SensitiveWordsApi.Entities;
 using SensitiveWordsApi.ServiceLayer.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SensitiveWordsApi.Controllers
 {
     [Route("api/[controller]")]
@@ -16,7 +14,9 @@ namespace SensitiveWordsApi.Controllers
             _services = services;
         }
 
-        // GET: api/<SensitiveWordsController>
+        /// <summary>
+        /// Retrieves all sensitive words
+        /// </summary>
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -31,6 +31,9 @@ namespace SensitiveWordsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves sensitive word using Id
+        /// </summary>
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid sensitiveWordId)
         {
@@ -45,9 +48,11 @@ namespace SensitiveWordsApi.Controllers
             }
         }
 
-        // POST api/<SensitiveWordsController>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] List<SensitiveWord> sensitiveWords)
+        /// <summary>
+        /// Creates new sensitive word 
+        /// </summary>
+        [HttpPost("CreateSenstiveWord")]
+        public async Task<IActionResult> CreateSenstiveWord([FromBody] List<SensitiveWord> sensitiveWords)
         {
             try
             {
@@ -65,9 +70,11 @@ namespace SensitiveWordsApi.Controllers
             }
         }
 
-        // PUT api/<SensitiveWordsController>/5
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] SensitiveWord sensitiveWord)
+        /// <summary>
+        /// Updates sensitive word 
+        /// </summary>
+        [HttpPut("UpdateSensitiveWord")]
+        public async Task<IActionResult> UpdateSensitiveWord([FromBody] SensitiveWord sensitiveWord)
         {
             try
             {
@@ -85,9 +92,11 @@ namespace SensitiveWordsApi.Controllers
             }
         }
 
-        // DELETE api/<SensitiveWordsController>/5
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid sensitiveWordId)
+        /// <summary>
+        /// Deletes sensitive word using Id
+        /// </summary>
+        [HttpDelete("DeleteSensitiveWord")]
+        public async Task<IActionResult> DeleteSensitiveWord(Guid sensitiveWordId)
         {
             try
             {
@@ -100,6 +109,9 @@ namespace SensitiveWordsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Sanitizes messages based on sensitive word collection
+        /// </summary>
         [HttpPost("MessageSanitizer")]
         public async Task<IActionResult> MessageSanitizer([FromBody] string message)
         {
