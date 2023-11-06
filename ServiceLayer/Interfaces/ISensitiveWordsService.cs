@@ -7,6 +7,7 @@ namespace SensitiveWordsApi.ServiceLayer.Interfaces
         Task<List<SensitiveWord>> GetAllSensitiveWords();
         Task<SensitiveWord> GetSensitiveWordById(Guid sensitiveWordId);
         Task<bool> CreateSensitiveWords(List<SensitiveWord> sensitiveWords);
+        Task<string> MessageSanitizer(string message);
         Task<bool> UpdateSensitiveWord(SensitiveWord sensitiveWord);
         Task<bool> DeleteSensitiveWord(Guid sensitiveWordId);
     }

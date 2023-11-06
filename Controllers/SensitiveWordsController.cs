@@ -18,46 +18,100 @@ namespace SensitiveWordsApi.Controllers
 
         // GET: api/<SensitiveWordsController>
         [HttpGet("GetAll")]
-        public async Task<List<SensitiveWord>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var resultSet = await _services.GetAllSensitiveWords();
-           
-            return resultSet;
+            try
+            {
+                var resultSet = await _services.GetAllSensitiveWords();
+                return StatusCode(200, resultSet);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("GetById")]
-        public async Task<SensitiveWord> GetById(Guid sensitiveWordId)
+        public async Task<IActionResult> GetById(Guid sensitiveWordId)
         {
-            var result = await _services.GetSensitiveWordById(sensitiveWordId);
-
-            return result;
+            try
+            {
+                var result = await _services.GetSensitiveWordById(sensitiveWordId);
+                return StatusCode(200, result);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // POST api/<SensitiveWordsController>
         [HttpPost]
-        public async Task<bool> Post([FromBody] List<SensitiveWord> sensitiveWords)
+        public async Task<IActionResult> Post([FromBody] List<SensitiveWord> sensitiveWords)
         {
-            var resultSet = await _services.CreateSensitiveWords(sensitiveWords);
-
-            return resultSet;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var resultSet = await _services.CreateSensitiveWords(sensitiveWords);
+                    return StatusCode(200, resultSet);
+                }
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // PUT api/<SensitiveWordsController>/5
         [HttpPut]
-        public async Task<bool> Put([FromBody] SensitiveWord sensitiveWord)
+        public async Task<IActionResult> Put([FromBody] SensitiveWord sensitiveWord)
         {
-            var result = await _services.UpdateSensitiveWord(sensitiveWord);
-
-            return result;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _services.UpdateSensitiveWord(sensitiveWord);
+                    return StatusCode(200, result);
+                }
+                else
+                    return BadRequest();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // DELETE api/<SensitiveWordsController>/5
         [HttpDelete]
-        public async Task<bool> Delete(Guid sensitiveWordId)
+        public async Task<IActionResult> Delete(Guid sensitiveWordId)
         {
-            var result = await _services.DeleteSensitiveWord(sensitiveWordId);
+            try
+            {
+                var result = await _services.DeleteSensitiveWord(sensitiveWordId);
+                return StatusCode(200, result);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
 
-            return result;
+        [HttpPost("MessageSanitizer")]
+        public async Task<IActionResult> MessageSanitizer([FromBody] string message)
+        {
+            try
+            {
+                string santizedMessage = await _services.MessageSanitizer(message);
+                return StatusCode(200, santizedMessage);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
     }
 }

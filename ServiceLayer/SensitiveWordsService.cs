@@ -74,6 +74,36 @@ namespace SensitiveWordsApi.ServiceLayer
             return false;
         }
 
+        public async Task<string> MessageSanitizer(string message)
+        {
+            string sanitizedMessage = string.Empty;
+            var listOfWords = message.Split(' ');
+            List<string> sensitiveWords = new List<string>();
+            List<string> sanitizedMessageUpdated = new List<string>();            
+
+            foreach (var word in listOfWords)
+            {
+                var sensitiveWord = await _apiDbContext.SensitiveWords.Where(x => x.Word == word).FirstOrDefaultAsync();
+
+                if (sensitiveWord != null)
+                {
+                    sensitiveWords.Add(word);
+                }
+            }
+
+            if(sensitiveWords != null)
+            {
+                foreach (var sensitiveWord in sensitiveWords)
+                {
+                    sanitizedMessage = message.Replace(sensitiveWord, "*****");
+                    message = sanitizedMessage;
+                }
+            }
+
+            return message
+                ;
+        }
+
         private bool SensitiveWordExist(Guid sensitiveWordId)
         {
             return _apiDbContext.SensitiveWords.Any(x => x.WordId == sensitiveWordId);
